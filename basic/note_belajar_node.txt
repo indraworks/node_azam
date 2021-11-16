@@ -1,0 +1,72 @@
+//Pelajaran pertama apa itu routing?
+jawab routing adalah end poit yg disediakan server 
+yg mana endpoint tsb akan mengarah pada layanan diserver 
+tapi betunk penulisannya dapat ditulis dibrowser sebgai 
+alamat seprti direcotry dgn garis miring
+misalkan kita punya server movie kita mau buat layanan genre action dan tahunya
+misalkan sbb (ini manual dulu ya)
+endpoint:
+localhost:3003/movies/action/1992 
+//mmberikan acess layanan kepada user utk dapat access di movie bertemna action tahun1192
+nah kalau manual ini akan sangat banyak sekali 
+mis manual
+localhost:3003/movies/comedy/1993
+localhost:3003/movies/comedy/1987
+localhost:3003/movies/action/1993
+localhost:3003/movies/drama/1993
+localhost:3003/movies/thriler/1993
+dari sana bisa sampai ratusan bahkan ribuan blum tahunnya kalau kit abuat endpoit 
+manual seprti diatas
+itu diatas di broser pnulisan di server
+
+note dalam 1 route idelanya bisa melakukan layanan 
+GET/POST/PATCH/DELETE/PUT
+
+const express = require('express');
+const app = express();
+const PORT = 3003
+//layanan endpoitn manual GET
+
+ app.get("/movie/action/1992",(req,res)=> {
+     res.send('Route Movie Manua1);
+ })
+ app.get("/movie/action/1992",(req,res)=> {
+     res.send('Route Movie Manua1);
+ })
+ app.get("/movie/comedy/1987",(req,res)=> {
+     res.send('Route Movie Manua1);
+ })
+ app.get("/movie/drama/2000",(req,res)=> {
+     res.send('Route Movie Manua1);
+ })
+ app.get("/movie/horor/2011",(req,res)=> {
+     res.send('Route Movie Manua1);
+ })
+
+app.listen($PORT,()=>console.log(`serving on PORT = ${PORT}`))
+
+
+///dinamic parameter/////-->dikususkan utk access dinamyc sub ordinary page atau subordinary route
+
+
+
+
+///Query Parameter/////-->dikususkan utk searching,filtering,sorting
+//yg ditangkap oleh server adalah acuanya nilai setelah tanda ?
+jadi query paramter dibrowser adalah searching,filtering,sorting dinamy 
+menyuruh server utk melakukanya ,nah server mulai tahu jika user ketik ? setelah "end-point"
+jadi aturannya semacam ini : endpoint?key=value_yg_dicari1&key2=value_yg_dicari_2 ..dst
+contoh localhost:3003/movies/:genre?genre=action&sort=asc
+note kata & dan atau ampersand adalah sebagai penyanbung jika lebih dari 1 request query
+disini menyuruh server utk urut film action dan tampilkan 
+nah server cara ambi tahu yg disuruh dgn  comman req.query.nama_key_broserr
+maka utk case diatas :script sbb:
+berarti ada 2 nilai query yg di request oleh user dibroser
+maka server sudah harus tangkap dgn query parameter utk masing2 keynya
+yg ditangkap adalah keynya nah nati hasil valuenya itu yg didapat oleh server
+dgn menquery key-nya!
+script:
+app.get("/movies/action",(req,res)=> {
+    res.send(req.query.genre); //hasil didapat action
+    res.send(req.query.sort) ; //didapat hasil asc
+})
