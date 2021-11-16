@@ -3,6 +3,28 @@ const app = express();
 const PORT = 3003
 //layanan endpoitn manual GET
 
+//cara kita mngembalikan ke user dariserver bentuk json adalah 
+// dengan res.json()
+//cntoh:
+app.get('/movies',(req,res)=> {
+   let myMovie = [ 
+      {title:'Spiderman',year:2001},
+      {title:'Lord Of the Ring',year:2004},
+      {title:'Blacks Ops',year:2011},
+      {title:'End Game Avenger',year:2019},
+
+   ]
+   res.json(myMovie);
+});
+
+
+
+app.listen(PORT,()=>console.log(`serving on PORT = ${PORT}`))
+
+
+
+
+/*old scripts param & query
 //contoh dgn params lebih dimamis jadi server buat dynamic routes
 //tidak seperti sebelumnya yg harus manual contoh:
 //localhost:3003/movies/:genre/year/:year
@@ -15,28 +37,31 @@ sehimgga kita bisa tangkap jika user memasukan genre movie dan tahun pepmbuatan 
 degan req.params
 
 */
-app.get('/movie/:genre/year/:year',(req,res)=> {
-   const genre = req.params.genre;
-   const year = req.params.year;
-   const feedback = `<h1>your choice choose film ${genre} with year: ${year}</h1>`;
- console.log(feedback)
-    res.send('<h1>your Route choice </h1>')
+// app.get('/movie/:genre/year/:year',(req,res)=> {
+//    const genre = req.params.genre;
+//    const year = req.params.year;
+//    const feedback = `<h1>your choice choose film ${genre} with year: ${year}</h1>`;
+//  console.log(feedback)
+//     res.send('<h1>your Route choice </h1>')
 
 
-})
+// })
 
 //contoh dengan query String yaitu dgn menangkap query yg diberikan oleh user di browser
 //setlah tanda "?"
 //mis tangkap asc dan mencari page
-app.get('/movies',(req,res)=> {
-    //user ?sort=asc&?page=3
-    //di serrver req.query,nama_keymya
-     console.log(req.query.sort);
-     console.log(req.query.page);
-     res.send('<h1> Send The Filter Movie!</h1>')
-})
+// app.get('/movies',(req,res)=> {
+//     //user ?sort=asc&?page=3
+//     //di serrver req.query,nama_keymya
+//      console.log(req.query.sort);
+//      console.log(req.query.page);
+//      res.send('<h1> Send The Filter Movie!</h1>')
+// })
 
-app.listen(PORT,()=>console.log(`serving on PORT = ${PORT}`))
+
+
+
+
 
 
 
