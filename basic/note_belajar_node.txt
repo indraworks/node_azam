@@ -70,3 +70,12 @@ app.get("/movies/action",(req,res)=> {
     res.send(req.query.genre); //hasil didapat action
     res.send(req.query.sort) ; //didapat hasil asc
 })
+//TEntang HTTP POST ///
+apa yg dimaksud dng HTTP POST jadi adalah communication antara client dan server
+dimana si client submit data ke server ,nah biasanya kalau submit client  mengisi
+form body dari sbuah page mah adata yg dikirim di encode  /form encoded
+nah si server menyebutnya sebagai body ,
+dimana body ini tadi adalah form encoded yg berupa JSON
+client --------------------> server 
+           body
+           

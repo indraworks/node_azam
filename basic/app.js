@@ -1,88 +1,80 @@
 const express = require('express');
 const app = express();
-const PORT = 3003
-//layanan endpoitn manual GET
+const bodyParser = require('body-parser');
+const PORT = 3005
+app.use(bodyParser.json());
+//lLayanan HTTP POST
 
-//cara kita mngembalikan ke user dariserver bentuk json adalah 
-// dengan res.json()
-//cntoh:
-app.get('/movies',(req,res)=> {
-   let myMovie = [ 
-      {title:'Spiderman',year:2001},
-      {title:'Lord Of the Ring',year:2004},
-      {title:'Blacks Ops',year:2011},
-      {title:'End Game Avenger',year:2019},
+app.post('/movies',(req,res)=> { 
+   let name= req.body.name;
+   let email = req.body.email;
+   let password = req.body.password;
+   console.log(`name:${name} email:${email} password:${password}`);
+   res.send('data fill OK')
+})
 
-   ]
-   res.json(myMovie);
-});
+
 
 
 
 app.listen(PORT,()=>console.log(`serving on PORT = ${PORT}`))
 
 
-
-
-/*old scripts param & query
-//contoh dgn params lebih dimamis jadi server buat dynamic routes
-//tidak seperti sebelumnya yg harus manual contoh:
-//localhost:3003/movies/:genre/year/:year
 /*
-diatas genre movies bisa dicari dgn memasukan dari browser dan kita sudah sediakan route 
-dinamicnya di router backend kita.
-contoh:
-localhost:3003/movies/:genre/year/:year
-sehimgga kita bisa tangkap jika user memasukan genre movie dan tahun pepmbuatan movienya
-degan req.params
+CATATAN LAYANANAn dari client ke server adalah POST 
+nah jadi oleh server dikenali sebgai body jadi semacam form yg diencoded dari halaman webpage
+dimana si client mengisi field2nya dan setelahnya tekan btton enter dan ter-send ke server
+nah server kenali sebgai satu kesatuan namaya BODY /istilah bagi server
+client------------------- server
+           BODY
+
+nah pada node js body ini tidak akan langsung dikenali oleh siserver harus ada 
+library yg meparsing encode form tadi ke server bisa di baca dan tahu 
+maka utk itu di install :npm i   
+setelahnaya digunakkan 
+const bodyParser= required('body-parser);
+
+app,use(bodyParser.json());
+
+
+
+jadi mis client isi form nama,email,password,alamat 
+maka server di endpoint akan menuliskan programnya atau layanannya sbb
+mmnberi layanan pada client utk ditamgkap body yg masuk ke end point yg disediakan 
+
+app.post("/movies",(req,res)=> {
+   let name = req.body.name;
+   let password = req.body.password;
+   let email = req.bdoy.email;
+   let alamat = req.body.alamat;
+    console.log(name,password,email,alamat)
+   res.send('sukses add data');
+})
+
+utk melakukan percobaan pengisian ke endpoint tidak bisa di browser HTML 
+harus dengan tools ,utk itu digunakan postman tools
+cara pilih di type header Content-type application/json
+dibagian body pilih json
+tinggal ketik smuakey dan value pake tanda ""
+{ "name":"indara",
+   email:indra@gmail,com
+   password :nokia123
+
+
+}
 
 */
-// app.get('/movie/:genre/year/:year',(req,res)=> {
-//    const genre = req.params.genre;
-//    const year = req.params.year;
-//    const feedback = `<h1>your choice choose film ${genre} with year: ${year}</h1>`;
-//  console.log(feedback)
-//     res.send('<h1>your Route choice </h1>')
-
-
-// })
-
-//contoh dengan query String yaitu dgn menangkap query yg diberikan oleh user di browser
-//setlah tanda "?"
-//mis tangkap asc dan mencari page
-// app.get('/movies',(req,res)=> {
-//     //user ?sort=asc&?page=3
-//     //di serrver req.query,nama_keymya
-//      console.log(req.query.sort);
-//      console.log(req.query.page);
-//      res.send('<h1> Send The Filter Movie!</h1>')
-// })
-
-
-
-
-
-
-
-
-
 
 /*
-old script withoud param and query
- app.get("/movie/action/1992",(req,res)=> {
-     res.send(`<h1> Route Movie Manual</h1>`)
- })
- app.get("/movie/action/1992",(req,res)=> {
-    res.send(`<h1> Route Movie Manual</h1>`)
-})   
- app.get("/movie/comedy/1987",(req,res)=> {
-    res.send(`<h1> Route Movie Manual</h1>`)
- })
- app.get("/movie/drama/2000",(req,res)=> {
-    res.send(`<h1> Route Movie Manual</h1>`)
- })
- app.get("/movie/horor/2011",(req,res)=> {
-    res.send(`<h1> Route Movie Manual</h1>`)
- })
+call back function adalah sbuah fucntion yg masuk sbgai parameter di function 
+yg nemirma dia sbgai paramterter,dan 
+stlah dia jadi paramerer maka dia panggil dirinya sendiri dgn parameter()
+
+high order function adalah functun yg menerima function lain sebgai parameter
+setelahnya didalam function HigOrder ini function mparamter tadi di invoke 
+sbb:parameter()
+nah jadilah dia memangil dirinya sndir
+
+
 
 */
